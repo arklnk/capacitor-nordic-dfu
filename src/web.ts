@@ -3,8 +3,7 @@ import { WebPlugin } from '@capacitor/core';
 import type { NordicDFUPlugin } from './definitions';
 
 export class NordicDFUWeb extends WebPlugin implements NordicDFUPlugin {
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  async startDFU(_options: { fileurl: string, peripheral: string }): Promise<void> {
+    console.warn('Can not startDFU in Web.');
   }
 }

@@ -1,3 +1,3 @@
 export interface NordicDFUPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  startDFU(options: { fileurl: string, peripheral: string }): Promise<void>;
 }
