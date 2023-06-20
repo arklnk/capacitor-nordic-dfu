@@ -1,10 +1,10 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@capacitor/android': ^5.0.0
-  '@capacitor/core': ^5.0.0
+  '@capacitor/android': ^4.0.0
+  '@capacitor/core': ^4.0.0
   '@capacitor/docgen': ^0.0.18
-  '@capacitor/ios': ^5.0.0
+  '@capacitor/ios': ^4.0.0
   '@ionic/eslint-config': ^0.3.0
   '@ionic/prettier-config': ^1.0.1
   '@ionic/swiftlint-config': ^1.1.2
@@ -17,10 +17,10 @@ specifiers:
   typescript: ~4.1.5
 
 devDependencies:
-  '@capacitor/android': 5.0.5_@capacitor+core@5.0.5
-  '@capacitor/core': 5.0.5
+  '@capacitor/android': 4.8.0_@capacitor+core@4.8.0
+  '@capacitor/core': 4.8.0
   '@capacitor/docgen': 0.0.18
-  '@capacitor/ios': 5.0.5_@capacitor+core@5.0.5
+  '@capacitor/ios': 4.8.0_@capacitor+core@4.8.0
   '@ionic/eslint-config': 0.3.0_j5k3gtgvc7l7uexttprsfsq27m
   '@ionic/prettier-config': 1.0.1_prettier@2.3.2
   '@ionic/swiftlint-config': 1.1.2
@@ -61,16 +61,16 @@ packages:
       js-tokens: 4.0.0
     dev: true
 
-  /@capacitor/android/5.0.5_@capacitor+core@5.0.5:
-    resolution: {integrity: sha512-vH5Qoy+p2Egsu1GtPtOsihHcEI2fCGCIHwlUGPaXXGysudzpzWtJZ5JZNlycJyfRdjECrjkutgbNaHLog+YlXQ==}
+  /@capacitor/android/4.8.0_@capacitor+core@4.8.0:
+    resolution: {integrity: sha512-VFKEWZ7dDExcGnsEz+5euFV6eyEsNZt2WR/rbeE3NXW/1FQZhM5qtqXxGwSUpFkhhlyP1KE0NJoC9EWmHEi+ug==}
     peerDependencies:
-      '@capacitor/core': ^5.0.0
+      '@capacitor/core': ^4.7.0
     dependencies:
-      '@capacitor/core': 5.0.5
+      '@capacitor/core': 4.8.0
     dev: true
 
-  /@capacitor/core/5.0.5:
-    resolution: {integrity: sha512-sulwWXEhYI6cBIj1WnH9k+a8z1f4XTRDtdh3YfXNdeV36UT7T55GCeGrPoQMm7ww6iWyGuv1VEzVIuZFga8rtw==}
+  /@capacitor/core/4.8.0:
+    resolution: {integrity: sha512-hFgLi1bGmADMmYMFAaitEsVheF3QgoMU4TrHkMgik51NzHwUq3nBdP5+A9oNS9qe3dEDyegoaHF8X9oJc9v8QQ==}
     dependencies:
       tslib: 2.5.3
     dev: true
@@ -87,12 +87,12 @@ packages:
       typescript: 4.2.4
     dev: true
 
-  /@capacitor/ios/5.0.5_@capacitor+core@5.0.5:
-    resolution: {integrity: sha512-U72TPbKN1HlUqEGCOPsCBp6j93Qu1TazWUuA8Q1yfcGDfSOE0zMDNl3eU7XO5OyzpV7z9lf8NJdehimezVl7sA==}
+  /@capacitor/ios/4.8.0_@capacitor+core@4.8.0:
+    resolution: {integrity: sha512-FbEXFzZIe5EGZNKpGxHNUEGKjcKK0XY45P3QXLoJPF3fEndW96ThLZOy3rHjt436sTu41NubFpPyIzyyy1YgMA==}
     peerDependencies:
-      '@capacitor/core': ^5.0.0
+      '@capacitor/core': ^4.7.0
     dependencies:
-      '@capacitor/core': 5.0.5
+      '@capacitor/core': 4.8.0
     dev: true
 
   /@eslint/eslintrc/0.4.3:
