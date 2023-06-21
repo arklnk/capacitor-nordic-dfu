@@ -73,6 +73,8 @@ public class NordicDFUPlugin extends Plugin {
 
             if (pendingCall != null) {
                 pendingCall.resolve();
+
+                pendingCall = null;
             }
 
             pendingDfuController = null;
@@ -88,6 +90,8 @@ public class NordicDFUPlugin extends Plugin {
                 ret.put("error", -1);
                 ret.put("message", "Aborted");
                 pendingCall.reject("Aborted", ret);
+
+                pendingCall = null;
             }
 
             pendingDfuController = null;
@@ -135,13 +139,12 @@ public class NordicDFUPlugin extends Plugin {
             return;
         }
 
-        File zipFile = new File(filePath);
+        Uri fileUri = Uri.parse(filePath);
+        File zipFile = new File(fileUri.getPath());
         if (!zipFile.exists()) {
             call.reject("file is not exist");
             return;
         }
-
-        Uri fileUri = Uri.parse(filePath);
 
         String deviceAddress = call.getString("deviceAddress");
         if (TextUtils.isEmpty("deviceAddress")) {
@@ -153,16 +156,13 @@ public class NordicDFUPlugin extends Plugin {
         boolean enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBoolean("enableUnsafeExperimentalButtonlessServiceInSecureDfu", false);
         boolean disableResume = call.getBoolean("disableResume", false);
 
-        final DfuServiceInitiator dfuInitiator = new DfuServiceInitiator(deviceAddress);
+        final DfuServiceInitiator dfuInitiator = new DfuServiceInitiator(deviceAddress).setZip(fileUri);
 
         dfuInitiator.setForceDfu(forceDfu);
         dfuInitiator.setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(enableUnsafeExperimentalButtonlessServiceInSecureDfu);
-
         if (disableResume) {
             dfuInitiator.disableResume();
         }
-
-        dfuInitiator.setZip(fileUri);
 
         DfuServiceListenerHelper.registerProgressListener(this.getContext(), mDfuProgressListener);
 
