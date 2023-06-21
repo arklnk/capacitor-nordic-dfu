@@ -113,6 +113,8 @@ public class NordicDFUPlugin extends Plugin {
 
                 pendingCall = null;
             }
+
+            pendingDfuController = null;
         }
     };
 
