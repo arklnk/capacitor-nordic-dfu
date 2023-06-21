@@ -6,6 +6,7 @@ export interface NordicDFUPlugin {
     deviceAddress: string;
     forceDfu?: boolean;
     enableUnsafeExperimentalButtonlessServiceInSecureDfu?: boolean;
+    forceScanningForNewAddressInLegacyDfu?: boolean;
     disableResume?: boolean;
   }): Promise<void>;
 
