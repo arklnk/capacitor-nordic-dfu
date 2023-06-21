@@ -155,11 +155,13 @@ public class NordicDFUPlugin extends Plugin {
         boolean forceDfu = call.getBoolean("forceDfu", false);
         boolean enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBoolean("enableUnsafeExperimentalButtonlessServiceInSecureDfu", false);
         boolean disableResume = call.getBoolean("disableResume", false);
+        boolean forceScanningForNewAddressInLegacyDfu = call.getBoolean("forceScanningForNewAddressInLegacyDfu", false);
 
         final DfuServiceInitiator dfuInitiator = new DfuServiceInitiator(deviceAddress).setZip(fileUri);
 
         dfuInitiator.setForceDfu(forceDfu);
         dfuInitiator.setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(enableUnsafeExperimentalButtonlessServiceInSecureDfu);
+        dfuInitiator.setForceScanningForNewAddressInLegacyDfu(forceScanningForNewAddressInLegacyDfu);
         if (disableResume) {
             dfuInitiator.disableResume();
         }
