@@ -9,6 +9,41 @@ npm install capacitor-nordic-dfu
 npx cap sync
 ```
 
+## iOS
+
+After installation, the following additions should be made to the app's `Info.plist`
+
+- Set [NSBluetoothAlwaysUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nsbluetoothalwaysusagedescription?language=objc) to a descriptive text, to be shown to the user on first access to the Bluetooth adapter. If this is not defined the app will crash.
+
+## Android
+
+After installation, the following permissions be added to your `AndroidManifest.xml`:
+
+``` xml
+<!-- required for API 18 - 30 -->
+<uses-permission
+    android:name="android.permission.BLUETOOTH"
+    android:maxSdkVersion="30" />
+<uses-permission
+    android:name="android.permission.BLUETOOTH_ADMIN"
+    android:maxSdkVersion="30" />
+
+<!-- required for API 23 - 30 -->
+<uses-permission-sdk-23
+    android:name="android.permission.ACCESS_COARSE_LOCATION"
+    android:maxSdkVersion="30" />
+<uses-permission-sdk-23
+    android:name="android.permission.ACCESS_FINE_LOCATION"
+    android:maxSdkVersion="30" />
+
+<!-- API 31+ -->
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<!-- add android:usesPermissionFlags="neverForLocation" when you can strongly assert that
+        your app never derives physical location from Bluetooth scan results. -->
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+```
+
 ## API
 
 <docgen-index>
