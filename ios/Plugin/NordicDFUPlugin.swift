@@ -30,12 +30,18 @@ public class NordicDFUPlugin: CAPPlugin, LoggerDelegate, DFUServiceDelegate, DFU
             call.reject("fileurl is empty")
             return
         }
+        
+        guard let fileURL = URL(string: fileUrlString) else {
+            call.reject("invalid fileurl")
+            return
+        }
+        
         guard let peripheral = call.getString("peripheral") else {
             call.reject("peripheral is empty")
             return
         }
         
-        guard FileManager().fileExists(atPath: fileUrlString) else {
+        guard FileManager.default.fileExists(atPath: fileURL.path) else {
             call.reject("file is not exist")
             return
         }
