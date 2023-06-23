@@ -162,35 +162,39 @@ public class NordicDFUPlugin extends Plugin {
         Boolean foreground = call.getBoolean("foreground");
         Long dataObjectPreparationDelay = call.getLong("dataObjectPreparationDelay");
 
-        final DfuServiceInitiator dfuInitiator = new DfuServiceInitiator(deviceAddress).setZip(fileUri);
+        try {
+            final DfuServiceInitiator dfuInitiator = new DfuServiceInitiator(deviceAddress).setZip(fileUri);
 
-        if (forceDfu != null) {
-            dfuInitiator.setForceDfu(forceDfu);
-        }
-        if (enableUnsafeExperimentalButtonlessServiceInSecureDfu != null) {
-            dfuInitiator.setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(enableUnsafeExperimentalButtonlessServiceInSecureDfu);
-        }
-        if (disableResume != null) {
-            dfuInitiator.setForceScanningForNewAddressInLegacyDfu(forceScanningForNewAddressInLegacyDfu);
-        }
-        if (disableNotification != null) {
-            dfuInitiator.setDisableNotification(disableNotification);
-        }
-        if (foreground != null) {
-            dfuInitiator.setForeground(foreground);
-        }
-        if (disableResume != null && disableResume) {
-            dfuInitiator.disableResume();
-        }
-        if (dataObjectPreparationDelay != null) {
-            dfuInitiator.setPrepareDataObjectDelay(dataObjectPreparationDelay);
-        }
+            if (forceDfu != null) {
+                dfuInitiator.setForceDfu(forceDfu);
+            }
+            if (enableUnsafeExperimentalButtonlessServiceInSecureDfu != null) {
+                dfuInitiator.setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(enableUnsafeExperimentalButtonlessServiceInSecureDfu);
+            }
+            if (disableResume != null) {
+                dfuInitiator.setForceScanningForNewAddressInLegacyDfu(forceScanningForNewAddressInLegacyDfu);
+            }
+            if (disableNotification != null) {
+                dfuInitiator.setDisableNotification(disableNotification);
+            }
+            if (foreground != null) {
+                dfuInitiator.setForeground(foreground);
+            }
+            if (disableResume != null && disableResume) {
+                dfuInitiator.disableResume();
+            }
+            if (dataObjectPreparationDelay != null) {
+                dfuInitiator.setPrepareDataObjectDelay(dataObjectPreparationDelay);
+            }
 
-        DfuServiceListenerHelper.registerProgressListener(this.getContext(), mDfuProgressListener);
+            DfuServiceListenerHelper.registerProgressListener(this.getContext(), mDfuProgressListener);
 
-        // pending task
-        this.pendingDfuController = dfuInitiator.start(this.getContext(), DfuService.class);
-        this.pendingCall = call;
+            // pending task
+            this.pendingCall = call;
+            this.pendingDfuController = dfuInitiator.start(this.getContext(), DfuService.class);
+        } catch (Exception e) {
+            call.reject("could not start dfu");
+        }
     }
 
     @PluginMethod
