@@ -154,21 +154,31 @@ public class NordicDFUPlugin extends Plugin {
             return;
         }
 
-        boolean forceDfu = call.getBoolean("forceDfu", false);
-        boolean enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBoolean("enableUnsafeExperimentalButtonlessServiceInSecureDfu", false);
-        boolean disableResume = call.getBoolean("disableResume", false);
-        boolean forceScanningForNewAddressInLegacyDfu = call.getBoolean("forceScanningForNewAddressInLegacyDfu", false);
-        boolean disableNotification = call.getBoolean("disableNotification", false);
-        boolean foreground = call.getBoolean("foreground", true);
+        Boolean forceDfu = call.getBoolean("forceDfu");
+        Boolean enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBoolean("enableUnsafeExperimentalButtonlessServiceInSecureDfu");
+        Boolean disableResume = call.getBoolean("disableResume");
+        Boolean forceScanningForNewAddressInLegacyDfu = call.getBoolean("forceScanningForNewAddressInLegacyDfu");
+        Boolean disableNotification = call.getBoolean("disableNotification");
+        Boolean foreground = call.getBoolean("foreground");
 
         final DfuServiceInitiator dfuInitiator = new DfuServiceInitiator(deviceAddress).setZip(fileUri);
 
-        dfuInitiator.setForceDfu(forceDfu);
-        dfuInitiator.setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(enableUnsafeExperimentalButtonlessServiceInSecureDfu);
-        dfuInitiator.setForceScanningForNewAddressInLegacyDfu(forceScanningForNewAddressInLegacyDfu);
-        dfuInitiator.setDisableNotification(disableNotification);
-        dfuInitiator.setForeground(foreground);
-        if (disableResume) {
+        if (forceDfu != null) {
+            dfuInitiator.setForceDfu(forceDfu);
+        }
+        if (enableUnsafeExperimentalButtonlessServiceInSecureDfu != null) {
+            dfuInitiator.setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(enableUnsafeExperimentalButtonlessServiceInSecureDfu);
+        }
+        if (disableResume != null) {
+            dfuInitiator.setForceScanningForNewAddressInLegacyDfu(forceScanningForNewAddressInLegacyDfu);
+        }
+        if (disableNotification != null) {
+            dfuInitiator.setDisableNotification(disableNotification);
+        }
+        if (foreground != null) {
+            dfuInitiator.setForeground(foreground);
+        }
+        if (disableResume != null && disableResume) {
             dfuInitiator.disableResume();
         }
 
@@ -186,7 +196,6 @@ public class NordicDFUPlugin extends Plugin {
         }
 
         this.pendingDfuController = null;
-        this.pendingCall = null;
 
         call.resolve();
     }
