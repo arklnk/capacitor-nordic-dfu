@@ -1,6 +1,6 @@
 # capacitor-nordic-dfu
 
-Capacitor Plugin is a Wrapper to use Nordic Semiconductor's Device Firmware Update (DFU) service to update a Bluetooth LE device.
+Capacitor Plugin is a Wrapper to use [Nordic Semiconductor](http://www.nordicsemi.com/)'s Device Firmware Update (DFU) service to update a Bluetooth LE device.
 
 ## Install
 
@@ -140,10 +140,11 @@ removeAllListeners() => any
 | **`deviceAddress`**                                        | <code>string</code>  | Supported Platforms: Android \ iOS |
 | **`forceDfu`**                                             | <code>boolean</code> | Supported Platforms: Android \ iOS |
 | **`enableUnsafeExperimentalButtonlessServiceInSecureDfu`** | <code>boolean</code> | Supported Platforms: Android \ iOS |
-| **`forceScanningForNewAddressInLegacyDfu`**                | <code>boolean</code> | Supported Platforms: Android \ iOS |
+| **`forceScanningForNewAddressInLegacyDfu`**                | <code>boolean</code> | Supported Platforms: Android       |
 | **`disableResume`**                                        | <code>boolean</code> | Supported Platforms: Android \ iOS |
 | **`foreground`**                                           | <code>boolean</code> | Supported Platforms: Android       |
 | **`disableNotification`**                                  | <code>boolean</code> | Supported Platforms: Android       |
+| **`dataObjectPreparationDelay`**                           | <code>number</code>  | Supported Platforms: Android       |
 
 
 #### PluginListenerHandle
@@ -153,3 +154,9 @@ removeAllListeners() => any
 | **`remove`** | <code>() =&gt; any</code> |
 
 </docgen-api>
+
+## Thanks
+
+- [Android-DFU-Library](https://github.com/NordicSemiconductor/Android-DFU-Library)
+- [IOS-DFU-Library](https://github.com/NordicSemiconductor/IOS-DFU-Library)
+- [Capacitorjs](https://capacitorjs.com/)
