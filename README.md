@@ -63,12 +63,12 @@ After installation, the following permissions be added to your `AndroidManifest.
 ### startDFU(...)
 
 ```typescript
-startDFU(options: { filePath: string; deviceAddress: string; forceDfu?: boolean; enableUnsafeExperimentalButtonlessServiceInSecureDfu?: boolean; disableResume?: boolean; }) => any
+startDFU(options: StartDFUOptions) => any
 ```
 
-| Param         | Type                                                                                                                                                                   |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`options`** | <code>{ filePath: string; deviceAddress: string; forceDfu?: boolean; enableUnsafeExperimentalButtonlessServiceInSecureDfu?: boolean; disableResume?: boolean; }</code> |
+| Param         | Type                                                        |
+| ------------- | ----------------------------------------------------------- |
+| **`options`** | <code><a href="#startdfuoptions">StartDFUOptions</a></code> |
 
 **Returns:** <code>any</code>
 
@@ -130,6 +130,20 @@ removeAllListeners() => any
 
 
 ### Interfaces
+
+
+#### StartDFUOptions
+
+| Prop                                                       | Type                 | Description                        |
+| ---------------------------------------------------------- | -------------------- | ---------------------------------- |
+| **`filePath`**                                             | <code>string</code>  | Supported Platforms: Android \ iOS |
+| **`deviceAddress`**                                        | <code>string</code>  | Supported Platforms: Android \ iOS |
+| **`forceDfu`**                                             | <code>boolean</code> | Supported Platforms: Android \ iOS |
+| **`enableUnsafeExperimentalButtonlessServiceInSecureDfu`** | <code>boolean</code> | Supported Platforms: Android \ iOS |
+| **`forceScanningForNewAddressInLegacyDfu`**                | <code>boolean</code> | Supported Platforms: Android \ iOS |
+| **`disableResume`**                                        | <code>boolean</code> | Supported Platforms: Android \ iOS |
+| **`foreground`**                                           | <code>boolean</code> | Supported Platforms: Android       |
+| **`disableNotification`**                                  | <code>boolean</code> | Supported Platforms: Android       |
 
 
 #### PluginListenerHandle
