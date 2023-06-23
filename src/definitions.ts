@@ -47,7 +47,7 @@ export interface StartDFUOptions {
   enableUnsafeExperimentalButtonlessServiceInSecureDfu?: boolean;
 
   /**
-   * Supported Platforms: Android \ iOS
+   * Supported Platforms: Android
    */
   forceScanningForNewAddressInLegacyDfu?: boolean;
 
@@ -63,4 +63,8 @@ export interface StartDFUOptions {
    * Supported Platforms: Android
    */
   disableNotification?: boolean;
+  /**
+   * Supported Platforms: Android
+   */
+  dataObjectPreparationDelay?: number;
 }

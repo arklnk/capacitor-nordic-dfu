@@ -160,6 +160,7 @@ public class NordicDFUPlugin extends Plugin {
         Boolean forceScanningForNewAddressInLegacyDfu = call.getBoolean("forceScanningForNewAddressInLegacyDfu");
         Boolean disableNotification = call.getBoolean("disableNotification");
         Boolean foreground = call.getBoolean("foreground");
+        Long dataObjectPreparationDelay = call.getLong("dataObjectPreparationDelay");
 
         final DfuServiceInitiator dfuInitiator = new DfuServiceInitiator(deviceAddress).setZip(fileUri);
 
@@ -180,6 +181,9 @@ public class NordicDFUPlugin extends Plugin {
         }
         if (disableResume != null && disableResume) {
             dfuInitiator.disableResume();
+        }
+        if (dataObjectPreparationDelay != null) {
+            dfuInitiator.setPrepareDataObjectDelay(dataObjectPreparationDelay);
         }
 
         DfuServiceListenerHelper.registerProgressListener(this.getContext(), mDfuProgressListener);

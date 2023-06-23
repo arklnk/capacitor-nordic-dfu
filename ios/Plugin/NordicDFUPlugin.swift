@@ -48,6 +48,7 @@ public class NordicDFUPlugin: CAPPlugin, DFUServiceDelegate, DFUProgressDelegate
         let enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBool("enableUnsafeExperimentalButtonlessServiceInSecureDfu")
         let disableResume = call.getBool("disableResume")
         let forceScanningForNewAddressInLegacyDfu = call.getBool("forceScanningForNewAddressInLegacyDfu")
+        let dataObjectPreparationDelay = call.getDouble("dataObjectPreparationDelay")
         
         do {
             let dfuFirmware = try DFUFirmware(urlToZipFile: fileURL)
@@ -64,6 +65,9 @@ public class NordicDFUPlugin: CAPPlugin, DFUServiceDelegate, DFUProgressDelegate
             }
             if forceScanningForNewAddressInLegacyDfu != nil {
                 dfuInitiator.forceScanningForNewAddressInLegacyDfu = forceScanningForNewAddressInLegacyDfu!
+            }
+            if dataObjectPreparationDelay != nil {
+                dfuInitiator.dataObjectPreparationDelay = dataObjectPreparationDelay!
             }
             
             // delegate
