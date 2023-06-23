@@ -8,6 +8,6 @@ export class NordicDFUWeb extends WebPlugin implements NordicDFUPlugin {
   }
 
   async abortDFU(): Promise<void> {
-    console.warn("Can not abortDFU in Web.");
+    console.warn('Can not abortDFU in Web.');
   }
 }

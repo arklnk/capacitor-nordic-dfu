@@ -1,15 +1,14 @@
 package com.arklnk.plugins.dfu;
 
 import android.app.Activity;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-
 import no.nordicsemi.android.dfu.BuildConfig;
 import no.nordicsemi.android.dfu.DfuBaseService;
 
 public class DfuService extends DfuBaseService {
+
     @Nullable
     @Override
     protected Class<? extends Activity> getNotificationTarget() {
@@ -22,7 +21,5 @@ public class DfuService extends DfuBaseService {
     }
 
     @Override
-    protected void updateForegroundNotification(@NonNull NotificationCompat.Builder builder) {
-
-    }
+    protected void updateForegroundNotification(@NonNull NotificationCompat.Builder builder) {}
 }

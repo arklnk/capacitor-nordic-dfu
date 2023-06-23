@@ -3,17 +3,13 @@ package com.arklnk.plugins.dfu;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-
 import java.io.File;
-
 import no.nordicsemi.android.dfu.DfuProgressListenerAdapter;
 import no.nordicsemi.android.dfu.DfuServiceController;
 import no.nordicsemi.android.dfu.DfuServiceInitiator;
@@ -26,7 +22,6 @@ public class NordicDFUPlugin extends Plugin {
     private DfuServiceController pendingDfuController;
 
     private final DfuProgressListenerAdapter mDfuProgressListener = new DfuProgressListenerAdapter() {
-
         @Override
         public void onDeviceConnecting(@NonNull String deviceAddress) {
             NordicDFUPlugin.this.triggerDfuStateDidChangeEvent("Connecting", deviceAddress);
@@ -48,7 +43,14 @@ public class NordicDFUPlugin extends Plugin {
         }
 
         @Override
-        public void onProgressChanged(@NonNull String deviceAddress, int percent, float speed, float avgSpeed, int currentPart, int partsTotal) {
+        public void onProgressChanged(
+            @NonNull String deviceAddress,
+            int percent,
+            float speed,
+            float avgSpeed,
+            int currentPart,
+            int partsTotal
+        ) {
             NordicDFUPlugin.this.triggerDfuProgressDidChangeEvent(deviceAddress, percent, speed, avgSpeed, currentPart, partsTotal);
         }
 
@@ -128,7 +130,7 @@ public class NordicDFUPlugin extends Plugin {
     }
 
     @PluginMethod
-    @SuppressWarnings({"ConstantConditions"})
+    @SuppressWarnings({ "ConstantConditions" })
     public void startDFU(PluginCall call) {
         if (this.pendingCall != null) {
             call.reject("DFU Pending");
@@ -155,7 +157,9 @@ public class NordicDFUPlugin extends Plugin {
         }
 
         Boolean forceDfu = call.getBoolean("forceDfu");
-        Boolean enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBoolean("enableUnsafeExperimentalButtonlessServiceInSecureDfu");
+        Boolean enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBoolean(
+            "enableUnsafeExperimentalButtonlessServiceInSecureDfu"
+        );
         Boolean disableResume = call.getBoolean("disableResume");
         Boolean forceScanningForNewAddressInLegacyDfu = call.getBoolean("forceScanningForNewAddressInLegacyDfu");
         Boolean disableNotification = call.getBoolean("disableNotification");
@@ -229,7 +233,14 @@ public class NordicDFUPlugin extends Plugin {
         notifyListeners("dfuStateDidChange", data);
     }
 
-    private void triggerDfuProgressDidChangeEvent(@NonNull String deviceAddress, int percent, float speed, float avgSpeed, int currentPart, int partsTotal) {
+    private void triggerDfuProgressDidChangeEvent(
+        @NonNull String deviceAddress,
+        int percent,
+        float speed,
+        float avgSpeed,
+        int currentPart,
+        int partsTotal
+    ) {
         JSObject data = new JSObject();
         data.put("deviceAddress", deviceAddress);
         data.put("percent", percent);
