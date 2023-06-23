@@ -7,26 +7,18 @@ import iOSDFULibrary
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(NordicDFUPlugin)
-public class NordicDFUPlugin: CAPPlugin, LoggerDelegate, DFUServiceDelegate, DFUProgressDelegate {
-
-    public func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int,
-                                     currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
-        
-    }
+public class NordicDFUPlugin: CAPPlugin, DFUServiceDelegate, DFUProgressDelegate {
     
-    public func dfuStateDidChange(to state: iOSDFULibrary.DFUState) {
-        notifyListeners("dfuStateDidChange", data: ["state": state.description])
-    }
+    private var pendingCall: CAPPluginCall?
+    private var pendingDfuController: DFUServiceController?
+    private var pendingDeviceAddress: String?
     
-    public func dfuError(_ error: iOSDFULibrary.DFUError, didOccurWithMessage message: String) {
-        
-    }
-    
-    public func logWith(_ level: iOSDFULibrary.LogLevel, message: String) {
-        
-    }
-
     @objc func startDFU(_ call: CAPPluginCall) {
+        if (self.pendingDfuController != nil) {
+            call.reject("dfu pending")
+            return
+        }
+        
         guard let filePath = call.getString("filePath") else {
             call.reject("filePath is empty")
             return
@@ -52,30 +44,93 @@ public class NordicDFUPlugin: CAPPlugin, LoggerDelegate, DFUServiceDelegate, DFU
             return
         }
         
-        let forceDfu = call.getBool("forceDfu", false)
-        let enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBool("enableUnsafeExperimentalButtonlessServiceInSecureDfu", false)
-        let disableResume = call.getBool("disableResume", false)
+        let forceDfu = call.getBool("forceDfu")
+        let enableUnsafeExperimentalButtonlessServiceInSecureDfu = call.getBool("enableUnsafeExperimentalButtonlessServiceInSecureDfu")
+        let disableResume = call.getBool("disableResume")
+        let forceScanningForNewAddressInLegacyDfu = call.getBool("forceScanningForNewAddressInLegacyDfu")
         
         do {
             let dfuFirmware = try DFUFirmware(urlToZipFile: fileURL)
-            let dfuInitiator = DFUServiceInitiator(queue: DispatchQueue(label: "DFU"))
+            let dfuInitiator = DFUServiceInitiator(queue: nil).with(firmware: dfuFirmware)
             
-            dfuInitiator.forceDfu = forceDfu
-            dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = enableUnsafeExperimentalButtonlessServiceInSecureDfu
-            dfuInitiator.disableResume = disableResume
+            if forceDfu != nil {
+                dfuInitiator.forceDfu = forceDfu!
+            }
+            if enableUnsafeExperimentalButtonlessServiceInSecureDfu != nil {
+                dfuInitiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = enableUnsafeExperimentalButtonlessServiceInSecureDfu!
+            }
+            if disableResume != nil {
+                dfuInitiator.disableResume = disableResume!
+            }
+            if forceScanningForNewAddressInLegacyDfu != nil {
+                dfuInitiator.forceScanningForNewAddressInLegacyDfu = forceScanningForNewAddressInLegacyDfu!
+            }
             
             // delegate
-            dfuInitiator.logger = self
             dfuInitiator.delegate = self
             dfuInitiator.progressDelegate = self
             
-            guard let _ = dfuInitiator
-                .with(firmware: dfuFirmware).start(targetWithIdentifier: deviceUUID) else {
-                call.reject("initial failure")
-                return
-            }
+            self.pendingCall = call
+            self.pendingDeviceAddress = deviceAddress
+            self.pendingDfuController = dfuInitiator.start(targetWithIdentifier: deviceUUID)
         } catch {
-            call.reject("dfu start error")
+            call.reject("could not start dfu")
         }
     }
+    
+    @objc func abortDFU(_ call: CAPPluginCall) {
+        _ = self.pendingDfuController?.abort()
+        
+        self.pendingDfuController = nil
+        
+        call.resolve()
+    }
+    
+    public func dfuProgressDidChange(for part: Int, outOf totalParts: Int, to progress: Int,
+                                     currentSpeedBytesPerSecond: Double, avgSpeedBytesPerSecond: Double) {
+        notifyListeners("dfuProgressDidChange", data: [
+            "deviceAddress": self.pendingDeviceAddress ?? "",
+            "currentPart": part,
+            "partsTotal": totalParts,
+            "percent": progress,
+            "speed": currentSpeedBytesPerSecond,
+            "avgSpeed": avgSpeedBytesPerSecond
+        ])
+    }
+    
+    public func dfuStateDidChange(to state: iOSDFULibrary.DFUState) {
+        switch state {
+        case .completed:
+            self.pendingCall?.resolve()
+            
+            self.pendingCall = nil
+            self.pendingDfuController = nil
+            self.pendingDeviceAddress = nil
+        case .aborted:
+            self.pendingCall?.reject("Aborted", nil, nil, [
+                "deviceAddress": self.pendingDeviceAddress ?? "",
+                "error": -1,
+                "message": "Aborted"
+            ])
+            
+            self.pendingCall = nil
+            self.pendingDfuController = nil
+            self.pendingDeviceAddress = nil
+        case .connecting, .starting, .enablingDfuMode, .uploading, .validating, .disconnecting:
+            notifyListeners("dfuStateDidChange", data: ["state": state.description, "deviceAddress": self.pendingDeviceAddress ?? ""])
+        }
+    }
+    
+    public func dfuError(_ error: iOSDFULibrary.DFUError, didOccurWithMessage message: String) {
+        self.pendingCall?.reject(message, nil, nil, [
+            "deviceAddress": self.pendingDeviceAddress ?? "",
+            "error": error,
+            "message": message
+        ])
+        
+        self.pendingCall = nil
+        self.pendingDfuController = nil
+        self.pendingDeviceAddress = nil
+    }
+    
 }
