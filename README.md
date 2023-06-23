@@ -1,5 +1,7 @@
 # capacitor-nordic-dfu
 
+![npm](https://img.shields.io/npm/v/capacitor-nordic-dfu)
+
 Capacitor Plugin is a Wrapper to use [Nordic Semiconductor](http://www.nordicsemi.com/)'s Device Firmware Update (DFU) service to update a Bluetooth LE device.
 
 ## Install
