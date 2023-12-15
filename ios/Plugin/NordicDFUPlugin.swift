@@ -1,6 +1,6 @@
 import Foundation
 import Capacitor
-import iOSDFULibrary
+import NordicDFU
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
@@ -102,7 +102,7 @@ public class NordicDFUPlugin: CAPPlugin, DFUServiceDelegate, DFUProgressDelegate
         ])
     }
 
-    public func dfuStateDidChange(to state: iOSDFULibrary.DFUState) {
+    public func dfuStateDidChange(to state: DFUState) {
         switch state {
         case .completed:
             self.pendingCall?.resolve()
@@ -125,7 +125,7 @@ public class NordicDFUPlugin: CAPPlugin, DFUServiceDelegate, DFUProgressDelegate
         }
     }
 
-    public func dfuError(_ error: iOSDFULibrary.DFUError, didOccurWithMessage message: String) {
+    public func dfuError(_ error: DFUError, didOccurWithMessage message: String) {
         self.pendingCall?.reject(message, nil, nil, [
             "deviceAddress": self.pendingDeviceAddress ?? "",
             "error": error,
