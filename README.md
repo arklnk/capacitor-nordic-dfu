@@ -65,14 +65,12 @@ After installation, the following permissions be added to your `AndroidManifest.
 ### startDFU(...)
 
 ```typescript
-startDFU(options: StartDFUOptions) => any
+startDFU(options: StartDFUOptions) => Promise<void>
 ```
 
 | Param         | Type                                                        |
 | ------------- | ----------------------------------------------------------- |
 | **`options`** | <code><a href="#startdfuoptions">StartDFUOptions</a></code> |
-
-**Returns:** <code>any</code>
 
 --------------------
 
@@ -80,10 +78,8 @@ startDFU(options: StartDFUOptions) => any
 ### abortDFU()
 
 ```typescript
-abortDFU() => any
+abortDFU() => Promise<void>
 ```
-
-**Returns:** <code>any</code>
 
 --------------------
 
@@ -99,7 +95,7 @@ addListener(eventName: 'dfuStateDidChange', listenerFunc: (params: { state: stri
 | **`eventName`**    | <code>'dfuStateDidChange'</code>                                             |
 | **`listenerFunc`** | <code>(params: { state: string; deviceAddress?: string; }) =&gt; void</code> |
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
 
 --------------------
 
@@ -115,7 +111,7 @@ addListener(eventName: 'dfuProgressDidChange', listenerFunc: (params: { percent:
 | **`eventName`**    | <code>'dfuProgressDidChange'</code>                                                                                                                      |
 | **`listenerFunc`** | <code>(params: { percent: number; speed: number; avgSpeed: number; currentPart: number; partsTotal: number; deviceAddress?: string; }) =&gt; void</code> |
 
-**Returns:** <code>any</code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
 
 --------------------
 
@@ -123,10 +119,8 @@ addListener(eventName: 'dfuProgressDidChange', listenerFunc: (params: { percent:
 ### removeAllListeners()
 
 ```typescript
-removeAllListeners() => any
+removeAllListeners() => Promise<void>
 ```
-
-**Returns:** <code>any</code>
 
 --------------------
 
@@ -151,9 +145,9 @@ removeAllListeners() => any
 
 #### PluginListenerHandle
 
-| Prop         | Type                      |
-| ------------ | ------------------------- |
-| **`remove`** | <code>() =&gt; any</code> |
+| Prop         | Type                                      |
+| ------------ | ----------------------------------------- |
+| **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
 
 </docgen-api>
 
