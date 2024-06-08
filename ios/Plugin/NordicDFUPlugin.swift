@@ -78,7 +78,7 @@ public class NordicDFUPlugin: CAPPlugin, DFUServiceDelegate, DFUProgressDelegate
             self.pendingDeviceAddress = deviceAddress
             self.pendingDfuController = dfuInitiator.start(targetWithIdentifier: deviceUUID)
         } catch {
-            call.reject("could not start dfu")
+            call.reject("could not start dfu", nil, error)
         }
     }
 
