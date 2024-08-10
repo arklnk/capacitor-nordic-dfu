@@ -1,6 +1,6 @@
 {
   "name": "capacitor-nordic-dfu",
-  "version": "0.0.9",
+  "version": "6.0.0",
   "description": "nordic dfu capacitor plugin",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
