@@ -21,7 +21,7 @@ After installation, the following additions should be made to the app's `Info.pl
 
 After installation, the following permissions be added to your `AndroidManifest.xml`:
 
-``` xml
+```xml
 <!-- required for API 18 - 30 -->
 <uses-permission
     android:name="android.permission.BLUETOOTH"
@@ -50,12 +50,12 @@ After installation, the following permissions be added to your `AndroidManifest.
 
 <docgen-index>
 
-* [`startDFU(...)`](#startdfu)
-* [`abortDFU()`](#abortdfu)
-* [`addListener('dfuStateDidChange', ...)`](#addlistenerdfustatedidchange)
-* [`addListener('dfuProgressDidChange', ...)`](#addlistenerdfuprogressdidchange)
-* [`removeAllListeners()`](#removealllisteners)
-* [Interfaces](#interfaces)
+- [`startDFU(...)`](#startdfu)
+- [`abortDFU()`](#abortdfu)
+- [`addListener('dfuStateDidChange', ...)`](#addlistenerdfustatedidchange)
+- [`addListener('dfuProgressDidChange', ...)`](#addlistenerdfuprogressdidchange)
+- [`removeAllListeners()`](#removealllisteners)
+- [Interfaces](#interfaces)
 
 </docgen-index>
 
@@ -72,8 +72,7 @@ startDFU(options: StartDFUOptions) => Promise<void>
 | ------------- | ----------------------------------------------------------- |
 | **`options`** | <code><a href="#startdfuoptions">StartDFUOptions</a></code> |
 
---------------------
-
+---
 
 ### abortDFU()
 
@@ -81,13 +80,12 @@ startDFU(options: StartDFUOptions) => Promise<void>
 abortDFU() => Promise<void>
 ```
 
---------------------
-
+---
 
 ### addListener('dfuStateDidChange', ...)
 
 ```typescript
-addListener(eventName: 'dfuStateDidChange', listenerFunc: (params: { state: string; deviceAddress?: string; }) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'dfuStateDidChange', listenerFunc: (params: { state: string; deviceAddress?: string; }) => void) => Promise<PluginListenerHandle>
 ```
 
 | Param              | Type                                                                         |
@@ -95,15 +93,14 @@ addListener(eventName: 'dfuStateDidChange', listenerFunc: (params: { state: stri
 | **`eventName`**    | <code>'dfuStateDidChange'</code>                                             |
 | **`listenerFunc`** | <code>(params: { state: string; deviceAddress?: string; }) =&gt; void</code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
---------------------
-
+---
 
 ### addListener('dfuProgressDidChange', ...)
 
 ```typescript
-addListener(eventName: 'dfuProgressDidChange', listenerFunc: (params: { percent: number; speed: number; avgSpeed: number; currentPart: number; partsTotal: number; deviceAddress?: string; }) => void) => Promise<PluginListenerHandle> & PluginListenerHandle
+addListener(eventName: 'dfuProgressDidChange', listenerFunc: (params: { percent: number; speed: number; avgSpeed: number; currentPart: number; partsTotal: number; deviceAddress?: string; }) => void) => Promise<PluginListenerHandle>
 ```
 
 | Param              | Type                                                                                                                                                     |
@@ -111,10 +108,9 @@ addListener(eventName: 'dfuProgressDidChange', listenerFunc: (params: { percent:
 | **`eventName`**    | <code>'dfuProgressDidChange'</code>                                                                                                                      |
 | **`listenerFunc`** | <code>(params: { percent: number; speed: number; avgSpeed: number; currentPart: number; partsTotal: number; deviceAddress?: string; }) =&gt; void</code> |
 
-**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt; & <a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+**Returns:** <code>Promise&lt;<a href="#pluginlistenerhandle">PluginListenerHandle</a>&gt;</code>
 
---------------------
-
+---
 
 ### removeAllListeners()
 
@@ -122,11 +118,9 @@ addListener(eventName: 'dfuProgressDidChange', listenerFunc: (params: { percent:
 removeAllListeners() => Promise<void>
 ```
 
---------------------
-
+---
 
 ### Interfaces
-
 
 #### StartDFUOptions
 
@@ -141,7 +135,6 @@ removeAllListeners() => Promise<void>
 | **`foreground`**                                           | <code>boolean</code> | Supported Platforms: Android       |
 | **`disableNotification`**                                  | <code>boolean</code> | Supported Platforms: Android       |
 | **`dataObjectPreparationDelay`**                           | <code>number</code>  | Supported Platforms: Android       |
-
 
 #### PluginListenerHandle
 
