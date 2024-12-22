@@ -6,5 +6,4 @@
 CAP_PLUGIN(NordicDFUPlugin, "NordicDFU",
            CAP_PLUGIN_METHOD(startDFU, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(abortDFU, CAPPluginReturnPromise);
-           CAP_PLUGIN_METHOD(removeAllListeners, CAPPluginReturnPromise);
 )

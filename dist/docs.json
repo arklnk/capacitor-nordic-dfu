@@ -1,0 +1,188 @@
+{
+  "api": {
+    "name": "NordicDFUPlugin",
+    "slug": "nordicdfuplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "startDFU",
+        "signature": "(options: StartDFUOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "StartDFUOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "StartDFUOptions"
+        ],
+        "slug": "startdfu"
+      },
+      {
+        "name": "abortDFU",
+        "signature": "() => Promise<void>",
+        "parameters": [],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "abortdfu"
+      },
+      {
+        "name": "addListener",
+        "signature": "(eventName: 'dfuStateDidChange', listenerFunc: (params: { state: string; deviceAddress?: string; }) => void) => Promise<PluginListenerHandle>",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "",
+            "type": "'dfuStateDidChange'"
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "",
+            "type": "(params: { state: string; deviceAddress?: string | undefined; }) => void"
+          }
+        ],
+        "returns": "Promise<PluginListenerHandle>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "PluginListenerHandle"
+        ],
+        "slug": "addlistenerdfustatedidchange"
+      },
+      {
+        "name": "addListener",
+        "signature": "(eventName: 'dfuProgressDidChange', listenerFunc: (params: { percent: number; speed: number; avgSpeed: number; currentPart: number; partsTotal: number; deviceAddress?: string; }) => void) => Promise<PluginListenerHandle>",
+        "parameters": [
+          {
+            "name": "eventName",
+            "docs": "",
+            "type": "'dfuProgressDidChange'"
+          },
+          {
+            "name": "listenerFunc",
+            "docs": "",
+            "type": "(params: { percent: number; speed: number; avgSpeed: number; currentPart: number; partsTotal: number; deviceAddress?: string | undefined; }) => void"
+          }
+        ],
+        "returns": "Promise<PluginListenerHandle>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "PluginListenerHandle"
+        ],
+        "slug": "addlistenerdfuprogressdidchange"
+      },
+      {
+        "name": "removeAllListeners",
+        "signature": "() => Promise<void>",
+        "parameters": [],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "removealllisteners"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "StartDFUOptions",
+      "slug": "startdfuoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "filePath",
+          "tags": [],
+          "docs": "Supported Platforms: Android \\ iOS",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "deviceAddress",
+          "tags": [],
+          "docs": "Supported Platforms: Android \\ iOS",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "forceDfu",
+          "tags": [],
+          "docs": "Supported Platforms: Android \\ iOS",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "enableUnsafeExperimentalButtonlessServiceInSecureDfu",
+          "tags": [],
+          "docs": "Supported Platforms: Android \\ iOS",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "forceScanningForNewAddressInLegacyDfu",
+          "tags": [],
+          "docs": "Supported Platforms: Android",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "disableResume",
+          "tags": [],
+          "docs": "Supported Platforms: Android \\ iOS",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "foreground",
+          "tags": [],
+          "docs": "Supported Platforms: Android",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "disableNotification",
+          "tags": [],
+          "docs": "Supported Platforms: Android",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "dataObjectPreparationDelay",
+          "tags": [],
+          "docs": "Supported Platforms: Android",
+          "complexTypes": [],
+          "type": "number | undefined"
+        }
+      ]
+    },
+    {
+      "name": "PluginListenerHandle",
+      "slug": "pluginlistenerhandle",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "remove",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "() => Promise<void>"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [],
+  "pluginConfigs": []
+}

@@ -8,7 +8,7 @@ export interface NordicDFUPlugin {
   addListener(
     eventName: 'dfuStateDidChange',
     listenerFunc: (params: { state: string; deviceAddress?: string }) => void,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 
   addListener(
     eventName: 'dfuProgressDidChange',
@@ -20,7 +20,7 @@ export interface NordicDFUPlugin {
       partsTotal: number;
       deviceAddress?: string;
     }) => void,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 
   removeAllListeners(): Promise<void>;
 }
